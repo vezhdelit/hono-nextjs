@@ -1,6 +1,6 @@
 import createHonoApp from "./app";
 import configureOpenAPI from "./open-api";
-import helloRouter from "./routes/hello.route";
+import helloRouter from "./routes/hello/hello.index";
 
 const app = createHonoApp();
 configureOpenAPI(app);
