@@ -4,8 +4,7 @@ import { Suspense } from "react";
 const getMessage = async () => {
   const result = await axios.get(process.env.BASE_URL + "/api/hello");
   return result.data;
-}
-
+};
 
 export default async function Home() {
   const message = await getMessage();

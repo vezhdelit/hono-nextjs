@@ -7,7 +7,6 @@ const fontSans = FontSans({
   variable: "--font-sans",
 });
 
-
 export const metadata: Metadata = {
   title: "Hono + Next 15",
   description: "Hono + Next 15 custom template",
@@ -20,11 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${fontSans.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <body className={`${fontSans.variable} antialiased`}>{children}</body>
     </html>
   );
 }
