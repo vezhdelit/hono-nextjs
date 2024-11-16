@@ -1,4 +1,10 @@
+import {
+	OpenApiGeneratorV3,
+	OpenAPIRegistry,
+} from "@asteasolutions/zod-to-openapi";
 import { z } from "zod";
+
+import { HTTP_STATUS_MESSAGES } from "@/enums/server";
 
 type ZodSchema =
 	| z.ZodUnion<[z.ZodTypeAny, z.ZodTypeAny]>
@@ -52,4 +58,52 @@ export const createErrorSchema = <T extends ZodSchema>(schema: T) => {
 				example: error,
 			}),
 	});
+};
+
+export const notFoundSchema = z.object({
+	message: z.string().openapi({
+		example: HTTP_STATUS_MESSAGES.NOT_FOUND,
+	}),
+});
+
+export const IdParamsSchema = z.object({
+	id: z.coerce.number().openapi({
+		param: {
+			name: "id",
+			in: "path",
+		},
+		required: ["id"],
+		example: 42,
+	}),
+});
+
+const oneOf = <T extends ZodSchema>(schemas: T[]) => {
+	const registry = new OpenAPIRegistry();
+
+	schemas.forEach((schema, index) => {
+		registry.register(index.toString(), schema);
+	});
+
+	const generator = new OpenApiGeneratorV3(registry.definitions);
+	const components = generator.generateComponents();
+
+	return components.components?.schemas
+		? Object.values(components.components!.schemas!)
+		: [];
+};
+
+export const jsonContentOneOf = <T extends ZodSchema>(
+	schemas: T[],
+	description: string
+) => {
+	return {
+		content: {
+			"application/json": {
+				schema: {
+					oneOf: oneOf(schemas),
+				},
+			},
+		},
+		description,
+	};
 };

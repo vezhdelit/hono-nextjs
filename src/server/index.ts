@@ -6,10 +6,8 @@ import tasksRouter from "./routes/tasks/tasks.index";
 const app = createHonoApp();
 configureOpenAPI(app);
 
-const routes = [helloRouter, tasksRouter];
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const routes = app.route("/api", helloRouter).route("/api", tasksRouter);
 
-routes.forEach((route) => {
-	app.route("/", route);
-});
-
+export type HonoAppType = typeof routes;
 export default app;

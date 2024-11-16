@@ -9,7 +9,6 @@ import { HTTP_STATUS_CODES, HTTP_STATUS_MESSAGES } from "@/enums/server";
 export default function createHonoApp() {
 	const app = createRouter();
 
-	app.basePath("/api"); // Next.js API routes are prefixed with /api
 	app.use(cors());
 	app.use(logger());
 

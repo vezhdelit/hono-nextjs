@@ -5,7 +5,7 @@ import { HTTP_STATUS_CODES } from "@/enums/server";
 export const hello = createRoute({
 	tags: ["Example"],
 	method: "get",
-	path: "/api/hello",
+	path: "/hello",
 	responses: {
 		[HTTP_STATUS_CODES.OK]: jsonContent(
 			z.object({ message: z.string() }),
