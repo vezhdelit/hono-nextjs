@@ -1,7 +1,6 @@
 "use client";
 import { useHello } from "@/hooks/use-hello";
 import Link from "next/link";
-import { Suspense } from "react";
 
 const Header = () => {
 	const { data: hello, isLoading } = useHello();
