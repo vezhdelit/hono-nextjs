@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 const Header = () => {
-	const { data: hello } = useHello();
+	const { data: hello, isLoading } = useHello();
 
 	return (
 		<nav className="bg-white">
@@ -18,9 +18,11 @@ const Header = () => {
 					</Link>
 
 					<p className="text-nowrap">
-						<Suspense fallback={<span>Loading...</span>}>
-							<span>{hello.message}</span>
-						</Suspense>
+						{isLoading ? (
+							<span>Loading...</span>
+						) : (
+							<span>{hello?.message}</span>
+						)}
 					</p>
 				</div>
 			</div>

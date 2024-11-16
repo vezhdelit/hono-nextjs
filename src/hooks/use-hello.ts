@@ -13,7 +13,6 @@ export const useHello = () => {
 			const data = await response.json();
 			return data;
 		},
-        initialData: { message: "" },
 	});
 
 	return query;
